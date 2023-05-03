@@ -1,12 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 import { StyledNav, StyledLink } from './App.styled';
 import { Suspense, lazy } from 'react';
-
+import { Cast } from './Cast/Cast';
+import { Reviews } from './Reviews/Reviews';
 const Home = lazy(() => import('../pages/Home/Home'));
 const Movies = lazy(() => import('../pages/Movies/Movies'));
 const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
-const Cast = lazy(() => import('../components/Cast/Cast'));
-const Reviews = lazy(() => import('../components/Reviews/Reviews'));
+lazy(() => import('./Cast/Cast'), 'default');
+lazy(() => import('./Reviews/Reviews'), 'default');
 export const App = () => {
   return (
     <div>

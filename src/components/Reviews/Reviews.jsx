@@ -46,15 +46,3 @@ export const Reviews = () => {
     </>
   );
 };
-
-// <ul>
-//   {reviews?.map(review => {
-//     const { id, author, content } = review;
-//     return (
-//       <li key={id}>
-//         <p>Author: {author} </p>
-//         <p>{content}</p>
-//       </li>
-//     );
-//   })}
-// </ul>;
