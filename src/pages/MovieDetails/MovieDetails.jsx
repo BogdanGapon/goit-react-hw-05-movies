@@ -14,7 +14,6 @@ import {
 
 const MovieDetails = () => {
   const location = useLocation();
-  console.log(`location at the movieDetails`, location);
   const { id } = useParams();
   const [rating, setRating] = useState('');
   const [title, setTitle] = useState('');
