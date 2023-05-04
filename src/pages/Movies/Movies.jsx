@@ -5,7 +5,7 @@ import { UrlForQuery } from 'Utilities/variables';
 import { MoviesByQuery } from 'components/MoviesByQuery/MoviesByQuery';
 const Movies = () => {
   const [query, setQuery] = useState('');
-  const [moviesByQuery, setMoviesByQuery] = useState();
+  const [moviesByQuery, setMoviesByQuery] = useState([]);
 
   const getQuery = query => {
     setQuery(query);

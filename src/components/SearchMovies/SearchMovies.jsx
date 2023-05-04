@@ -2,28 +2,35 @@ import { useSearchParams } from 'react-router-dom';
 import { StyledInput, SearchButton, SearchForm } from './SearchMovies.styled';
 import { ImSearch } from 'react-icons/im';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 export const SerchMovies = ({ getQuery }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query') ?? '';
+  const [query, setQuery] = useState(searchParams.get('query') ?? '');
 
-  const updateQuery = name => {
-    const params = name !== '' ? { query: name } : {};
-    setSearchParams(params);
+  const updateQuery = e => {
+    setQuery(e.target.value);
   };
 
-  const SubmitForm = e => {
-    e.preventDefault();
+  const onSubmitForm = query => {
+    const params = query !== '' ? { query: query } : {};
+    setSearchParams(params);
     getQuery(query);
   };
+
   return (
     <main>
-      <SearchForm onSubmit={SubmitForm}>
+      <SearchForm
+        onSubmit={e => {
+          e.preventDefault();
+          onSubmitForm(query);
+        }}
+      >
         <label htmlFor="">
           <StyledInput
             type="text"
             value={query}
             placeholder="Write the name of the movie"
-            onChange={e => updateQuery(e.target.value)}
+            onChange={updateQuery}
           />
         </label>
 
