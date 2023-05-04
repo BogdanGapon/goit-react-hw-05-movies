@@ -22,11 +22,7 @@ const Home = () => {
 
         setMovies([...results]);
       })
-      .catch(err => {
-        // console.log(
-        //   'I catch error but its not an error this is contoller.abort'
-        // );
-      });
+      .catch(err => {});
     return () => {
       controller.abort();
     };

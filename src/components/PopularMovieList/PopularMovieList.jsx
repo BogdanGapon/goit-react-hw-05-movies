@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { StyledLink } from './PopularMovieList.styled';
 import { StyledUl } from './PopularMovieList.styled';
+import PropTypes from 'prop-types';
 export const PopularMovieList = ({ movies }) => {
   const location = useLocation();
   return (
@@ -19,4 +20,8 @@ export const PopularMovieList = ({ movies }) => {
       </StyledUl>
     </>
   );
+};
+
+PopularMovieList.propTypes = {
+  movies: PropTypes.array.isRequired,
 };

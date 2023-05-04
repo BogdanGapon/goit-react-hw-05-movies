@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { StyledInput, SearchButton, SearchForm } from './SearchMovies.styled';
 import { ImSearch } from 'react-icons/im';
+import PropTypes from 'prop-types';
 export const SerchMovies = ({ getQuery }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
@@ -32,4 +33,8 @@ export const SerchMovies = ({ getQuery }) => {
       </SearchForm>
     </main>
   );
+};
+
+SerchMovies.propTypes = {
+  getQuery: PropTypes.func.isRequired,
 };
