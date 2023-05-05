@@ -49,7 +49,10 @@ const MovieDetails = () => {
   return (
     <main>
       <section>
-        п
+        <BackLink to={backLink.current}>
+          <BackIcon />
+          Go back
+        </BackLink>
         <MoviDetailsWrapper>
           <div>
             {img === 'https://image.tmdb.org/t/p/w500null' ? (
