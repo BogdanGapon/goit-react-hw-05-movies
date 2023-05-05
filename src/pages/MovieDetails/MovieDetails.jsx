@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { KEY, UrlForMovieDetails } from 'Utilities/variables';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
@@ -14,12 +14,10 @@ import {
 
 const MovieDetails = () => {
   const location = useLocation();
+  const backLink = useRef(location.state?.from);
+
   const { id } = useParams();
-  const [rating, setRating] = useState('');
-  const [title, setTitle] = useState('');
-  const [movieDescription, setMovieDescription] = useState('');
-  const [img, setImg] = useState('');
-  const [movieGenres, setMovieGenres] = useState('');
+  const [movieValue, setMovieValue] = useState({});
   useEffect(() => {
     const controller = new AbortController();
     axios
@@ -34,34 +32,24 @@ const MovieDetails = () => {
             return genre.name;
           })
           .join(' ');
-
-        setTitle(title);
-        setRating(vote_average);
-        setMovieDescription(overview);
-        setMovieGenres(stringGenres);
-        setImg(`https://image.tmdb.org/t/p/w500${poster_path}`);
+        setMovieValue({
+          title: title,
+          vote_average: vote_average,
+          overview: overview,
+          stringGenres: stringGenres,
+          img: `https://image.tmdb.org/t/p/w500${poster_path}`,
+        });
       })
       .catch(err => {});
     return () => {
       controller.abort();
     };
   }, [id]);
-
+  const { title, vote_average, overview, stringGenres, img } = movieValue;
   return (
     <main>
       <section>
-        {location.pathname === `/movies/${id}` ? (
-          <BackLink to={location.state?.from}>
-            <BackIcon />
-            Go back
-          </BackLink>
-        ) : (
-          <BackLink to={location.state?.from?.state?.from}>
-            <BackIcon />
-            Go back
-          </BackLink>
-        )}
-
+        п
         <MoviDetailsWrapper>
           <div>
             {img === 'https://image.tmdb.org/t/p/w500null' ? (
@@ -77,11 +65,11 @@ const MovieDetails = () => {
           </div>
           <MovieTextWrapper>
             <h2>{title}</h2>
-            <p>Rating: {rating}</p>
+            <p>Rating: {vote_average}</p>
             <h3>Overview</h3>
-            <p>{movieDescription}</p>
+            <p>{overview}</p>
             <b>Genres</b>
-            <p>{movieGenres}</p>
+            <p>{stringGenres}</p>
           </MovieTextWrapper>
         </MoviDetailsWrapper>
       </section>
@@ -89,11 +77,11 @@ const MovieDetails = () => {
         <p>Additional information</p>
 
         <LinkWrapper>
-          <StyledLink to="cast" state={{ id: id, from: location }}>
+          <StyledLink to="cast" state={{ id: id }}>
             Cast
           </StyledLink>
 
-          <StyledLink to="reviews" state={{ id: id, from: location }}>
+          <StyledLink to="reviews" state={{ id: id }}>
             Reviews
           </StyledLink>
         </LinkWrapper>

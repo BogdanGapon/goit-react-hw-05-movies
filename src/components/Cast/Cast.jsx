@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { KEY } from 'Utilities/variables';
 import { Img, ListGrid } from './Cast.styled';
-export const Cast = () => {
+export const Cast = ({ loc }) => {
   const location = useLocation();
   const id = location.state?.id;
   const [cast, setCast] = useState([]);
